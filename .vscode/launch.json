@@ -5,13 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "java",
-      "name": "CodeLens (Launch) - test",
-      "request": "launch",
-      "mainClass": "java.test",
-      "projectName": "Algo_study_743021aa"
-    },
-    {
       "name": "Java",
       "type": "java",
       "request": "launch",
