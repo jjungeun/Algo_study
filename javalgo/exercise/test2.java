@@ -1,3 +1,5 @@
+package javalgo.exercise;
+
 import java.util.*;
 
 // 가운데 글자 가져오기
