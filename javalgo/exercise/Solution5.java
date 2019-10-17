@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 // https://www.acmicpc.net/problem/1260
-// ÀÎÁ¢ ¸®½ºÆ®·Î ±¸ÇöÇÔ
+// ì¸ì ‘ë¦¬ìŠ¤íŠ¸ë¡œ êµ¬í˜„
 public class Solution5 {
 	static ArrayList<Integer>[] list;
 	static boolean[] check;
