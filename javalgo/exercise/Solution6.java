@@ -1,5 +1,6 @@
 import java.util.*;
 
+// K¹øÂ° ¼ö
 class Solution6 {
   public static void main(String[] args) {
     int[] array = { 1, 5, 2, 6, 3, 7, 4 };
