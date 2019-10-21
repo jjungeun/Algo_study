@@ -4,39 +4,29 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    
-    {
-      "name": "Java",
-      "type": "java",
-      "request": "launch",
-      "stopOnEntry": true,
-      "jdkPath": "${env:JAVA_HOME}/bin",
-      "cwd": "${fileDirname}",
-      "startupClass": "${fileBasenameNoExtension}",
-      "classpath": [
-        ".",
-        "${fileDirname}"
-      ]
-    },
-    {
-      "name": "Java Console App",
-      "type": "java",
-      "request": "launch",
-      "stopOnEntry": true,
-      "jdkPath": "${env:JAVA_HOME}/bin",
-      "cwd": "${fileDirname}",
-      "startupClass": "${fileBasenameNoExtension}",
-      "classpath": [
-        ".",
-        "${fileDirname}"
-      ],
-      "externalConsole": true
-    },
     {
       "type": "java",
       "name": "Debug (Launch) - Current File",
       "request": "launch",
       "mainClass": "${file}"
     },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Solution6",
+      "request": "launch",
+      "mainClass": "Solution6"
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Solution7",
+      "request": "launch",
+      "mainClass": "Solution7"
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch)-Solution8",
+      "request": "launch",
+      "mainClass": "Solution8"
+    }
   ]
 }
