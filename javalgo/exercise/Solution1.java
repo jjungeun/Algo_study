@@ -1,5 +1,3 @@
-package javalgo.exercise;
-
 import java.util.HashMap;
 
 // 완주하지 못한 선수
