@@ -1,5 +1,3 @@
-package exercise;
-
 import java.util.*;
 
 // 모의고사
