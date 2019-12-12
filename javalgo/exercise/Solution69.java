@@ -15,12 +15,9 @@ class Solution69 {
     PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
     while (day < k) {
       while (idx < dates.length && dates[idx] <= day) {
-        System.out.println(dates[idx]);
-        System.out.println(day);
         queue.add(supplies[idx]);
         idx++;
       }
-      System.out.println();
       day += queue.poll();
       answer++;
     }
