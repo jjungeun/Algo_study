@@ -1,10 +1,4 @@
-# 하노이의 탑
-
-3개의 막대기에 쌓아놓은 원반을 최소 횟수로 옮기는 유명한 알고리즘문제이다.
-
-n은 원반의 개수이다.
-
-```
+public class Hanoi {
   static void hanoi(int n, int x, int y) {
     if (n > 1)
       hanoi(n - 1, x, 6 - x - y);
@@ -14,5 +8,8 @@ n은 원반의 개수이다.
     if (n > 1)
       hanoi(n - 1, 6 - x - y, y);
   }
-```
 
+  public static void main(String[] args) {
+    hanoi(3, 1, 3);
+  }
+}
