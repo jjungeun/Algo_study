@@ -7,15 +7,16 @@ class ShellSort {
   }
 
   public static void shellsort(int[] arr) {
-    int n = arr.length;
-    for (int h = n / 2; h > 0; h /= 2) {
-      for (int i = h; i < n; i++) {
-        int j;
+    int size = arr.length;
+    for (int gap = size / 2; gap > 0; gap /= 2) {
+      for (int i = gap; i < size; i++) {
+        int j = i;
         int tmp = arr[i];
-        for (j = i - h; j >= 0 && arr[j] > tmp; j -= h) {
-          arr[j + h] = arr[j];
+        while (j >= gap && arr[j - gap] > tmp) {
+          arr[j] = arr[j - gap];
+          j -= gap;
         }
-        arr[j + h] = tmp;
+        arr[j] = tmp;
       }
     }
   }
