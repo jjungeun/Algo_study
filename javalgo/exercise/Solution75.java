@@ -19,49 +19,10 @@ class Solution75 {
 
 	int get_max(int[] arr, int start, int end) {
 		int max = 0;
-		for (int i = start; i < end; i++) {
+		for (int i = start; i < arr.length && i < end; i++) {
 			if (arr[i] > max)
 				max = arr[i];
 		}
 		return (max);
 	}
-
-	// boolean is_end(int[] stones, int k) {
-	// int sigh = 0;
-	// for (int s : stones) {
-	// if (s == 0)
-	// sigh++;
-	// else
-	// sigh = 0;
-	// if (sigh >= k)
-	// return (true);
-	// }
-	// return (false);
-	// }
-
-	// int get_min(int[] arr) {
-	// int min = 200000000;
-	// for (int i = 0; i < arr.length; i++) {
-	// if (arr[i] != 0 && arr[i] < min)
-	// min = arr[i];
-	// }
-	// return (min);
-	// }
-
-	// public int solution(int[] stones, int k) {
-	// int answer = 0;
-	// while (true) {
-	// if (is_end(stones, k))
-	// break;
-	// int min = get_min(stones);
-	// for (int i = 0; i < stones.length; i++) {
-	// if (stones[i] - min > 0)
-	// stones[i] -= min;
-	// else
-	// stones[i] = 0;
-	// }
-	// answer += min;
-	// }
-	// return answer;
-	// }
 }
