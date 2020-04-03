@@ -1,6 +1,6 @@
 class Solution75 {
 	public static void main(String[] args) {
-		int[] stones = { 1, 5, 100 };
+		int[] stones = { 1, 5 };
 		int k = 1;
 		System.out.println(new Solution75().solution(stones, k));
 	}
