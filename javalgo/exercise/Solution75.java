@@ -1,7 +1,7 @@
 class Solution75 {
 	public static void main(String[] args) {
-		int[] stones = { 2, 4, 5, 3, 2, 1, 4, 2, 5, 1 };
-		int k = 3;
+		int[] stones = { 1, 5, 100 };
+		int k = 1;
 		System.out.println(new Solution75().solution(stones, k));
 	}
 
