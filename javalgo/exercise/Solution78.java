@@ -1,7 +1,7 @@
 class Solution78 {
 	public static void main(String[] args) {
-		int[] stones = { 1, 3, 0, 1 };
-		int k = 2;
+		int[] stones = { 1, 2, 2, 192, 2, 2, 2 };
+		int k = 1;
 		System.out.println(new Solution78().solution(stones, k));
 	}
 
@@ -20,7 +20,7 @@ class Solution78 {
 
 	int get_max(int[] arr, int start, int end, int[] max_cache) {
 		int max = 0;
-		if (end > 2 && end - 2 < max_cache.length && start > 0 && max_cache[end - 2] > arr[start - 1]) {
+		if (start > 0 && end - 2 < max_cache.length && max_cache[end - 2] > arr[start - 1]) {
 			max = arr[end - 1] > max_cache[end - 2] ? arr[end - 1] : max_cache[end - 2];
 		} else {
 			for (int i = start; i < arr.length && i < end; i++) {
