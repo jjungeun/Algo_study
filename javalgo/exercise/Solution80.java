@@ -4,20 +4,14 @@ class Solution80 {
 		System.out.println(new Solution80().solution(land));
 	}
 
-	int dfs(int[][] land, int row, int sum, int max) {
-		int tmp;
-		if (land.length == row)
-			return sum;
-		for (int i = 0; i < 4; i++) {
-			tmp = dfs(land, row + 1, sum + land[row][i], max);
-			if (tmp > max)
-				max = tmp;
-		}
-	}
-
-	// dfs방식으로 풀기
 	int solution(int[][] land) {
-		int answer = dfs(land, 0, 0, 0);
-		return answer;
+		int size = land.length;
+		for (int i = 1; i < size; i++) {
+			land[i][0] += Math.max(land[i - 1][1], Math.max(land[i - 1][2], land[i - 1][3]));
+			land[i][1] += Math.max(land[i - 1][0], Math.max(land[i - 1][2], land[i - 1][3]));
+			land[i][2] += Math.max(land[i - 1][0], Math.max(land[i - 1][1], land[i - 1][3]));
+			land[i][3] += Math.max(land[i - 1][0], Math.max(land[i - 1][1], land[i - 1][2]));
+		}
+		return Math.max(land[size - 1][0], Math.max(land[size - 1][1], Math.max(land[size - 1][2], land[size - 1][3])));
 	}
 }
