@@ -1,22 +1,22 @@
-import java.util.Arrays;
 
 class tmp {
 	public static void main(String[] argv) {
-		String s1 = "cde";
-		String s2 = "efd";
-		System.out.println(new tmp().solution(s1, s2));
+		int[][] s = {{1,2,3},{3,2,1},{3,1,2}};
+		int[][] arr = new tmp().solution(s);
+		for(int[] i : arr)
+		{
+			for(int j: i)
+				System.out.print(j + " ");
+			System.out.println();
+		}
 	}
 
-	int[] get_numChar(String s){
-		int[] numChar = new int[128];
-		for(int i = 0; i < s.length(); i++)
-			numChar[s.charAt(i)] += 1;
-		return numChar;
-	}
 
-	boolean solution(String s1, String s2) {
-		if (s1.length() != s2.length())
-			return false;
-		return Arrays.equals(get_numChar(s1),get_numChar(s2));
+	int[][] solution(int[][] arr) {
+		int[][] ret = new int[arr.length][arr.length];
+		for(int row = 0; row<arr.length;row++)
+			for(int col = 0; col<arr.length;col++)
+				ret[(col+arr.length-1)%arr.length][row] = arr[row][col];
+		return ret;
 	}
 }
