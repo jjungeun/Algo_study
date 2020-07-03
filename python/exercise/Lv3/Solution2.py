@@ -19,6 +19,7 @@ def solution(tickets):
 	return answer
 
 # tickets = [["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]
+tickets = [["ICN", "C"], ["C", "ICN"], ["ICN", "C"]]
 # tickets = [["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]
-tickets = [["ICN", "B"], ["ICN", "C"], ["C", "D"], ["D", "C"], ["B", "D"], ["D", "B"], ["B", "ICN"], ["C", "B"]]
+# tickets = [["ICN", "B"], ["ICN", "C"], ["C", "D"], ["D", "C"], ["B", "D"], ["D", "B"], ["B", "ICN"], ["C", "B"]]
 print(solution(tickets))
