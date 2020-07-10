@@ -1,14 +1,7 @@
 
 class tmp {
 	public static void main(String[] argv) {
-		int[][] s = {{1,2,3},{3,2,1},{3,1,2}};
-		int[][] arr = new tmp().solution(s);
-		for(int[] i : arr)
-		{
-			for(int j: i)
-				System.out.print(j + " ");
-			System.out.println();
-		}
+
 	}
 
 
