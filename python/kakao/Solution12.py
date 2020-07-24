@@ -1,6 +1,6 @@
 from itertools import permutations
 
-def perm(n, weak, idx):
+def make_weak_list(n, weak, idx):
 	newArr = []
 	for i in range(idx, idx + len(weak)):
 		if i < len(weak):
@@ -35,7 +35,7 @@ def solution(n, weak, dist):
 	for i in range(len(dist)):
 		casedist += list(permutations(dist, i +1))
 	for i, w in enumerate(weak):
-		newArr = perm(n, weak, i)
+		newArr = make_weak_list(n, weak, i)
 		for case in casedist:
 			if isOkay(list(case), newArr) and len(case) < answer:
 				answer = len(case)
@@ -49,7 +49,7 @@ def bad_solution(n, weak, dist):
 	for i in range(len(dist)):
 		casedist.append(dist[:i + 1])
 	for i, w in enumerate(weak):
-		newArr = perm(n, weak, i)
+		newArr = make_weak_list(n, weak, i)
 		for case in casedist:
 			if isOkay(case[:], newArr) and len(case) < answer:
 				answer = len(case)
