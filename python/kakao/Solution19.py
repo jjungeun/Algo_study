@@ -36,7 +36,7 @@ def solution(board):
 	def _yield_vertical_moves(row, col):
 		for m_row, m_col in move_case:
 			new_row, new_col = row + m_row, col + m_col
-			if _is_valid(new_row, new_col) and _is_valid(new_row+1, col):
+			if _is_valid(new_row, new_col) and _is_valid(new_row+1, new_col):
 				yield (new_row, new_col, False)
 		if _is_valid(row, col-1) and _is_valid(row+1, col-1):
 			yield (row+1, col-1, True)
@@ -65,60 +65,3 @@ def solution(board):
 
 board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]
 print(solution(board))
-
-# def is_finish(position, N):
-# 	row, col, is_horizon = position
-# 	if is_horizon == True and row == N - 1 and col == N - 2:
-# 		return True
-# 	if is_horizon == False and row == N - 2 and col == N - 1:
-# 		return True
-# 	return False
-
-# def is_invalid(board, position, N):
-# 	row, col, is_horizon = position
-# 	if is_horizon:
-# 		if row not in range(0, N) or col not in range(0, N - 1):
-# 			return True
-# 		if board[row][col] == 1 or board[row][col + 1] == 1:
-# 			return True
-# 	else:
-# 		if row not in range(0, N - 1) or col not in range(0, N):
-# 			return True
-# 		if board[row][col] == 1 or board[row + 1][col] == 1:
-# 			return True
-# 	return False
-
-# def test_cases(board, position, move, min_move):
-# 	row, col, is_horizon = position
-# 	N = len(board)
-# 	if is_invalid(board, position, N):
-# 		return N * N
-# 	if is_finish(position, N) or move > min_move:
-# 		return move
-# 	min_move = min(min_move, test_cases(board, [row, col + 1, is_horizon], move + 1, min_move))
-# 	# min_move = min(min_move, test_cases(board, [row, col - 1, is_horizon], move + 1, min_move))
-# 	min_move = min(min_move, test_cases(board, [row + 1, col, is_horizon], move + 1, min_move))
-# 	# min_move = min(min_move, test_cases(board, [row - 1, col, is_horizon], move + 1, min_move))
-# 	if is_horizon:
-# 		if col + 1 < N and row + 1 < N and board[row + 1][col + 1] == 0:
-# 			min_move = min(min_move, test_cases(board, [row, col, not is_horizon], move + 1, min_move))
-# 		if row - 1 >= 0 and board[row - 1][col] == 0:
-# 			min_move = min(min_move, test_cases(board, [row - 1, col + 1, not is_horizon], move + 1, min_move))
-# 		# if row + 1 < N and board[row + 1][col] == 0:
-# 		# 	min_move = min(min_move, test_cases(board, [row, col + 1, not is_horizon], move + 1, min_move))
-# 		# if row - 1 >= 0 and col + 1 < N and board[row - 1][col + 1] == 0:
-# 		# 	min_move = min(min_move, test_cases(board, [row - 1, col, not is_horizon], move + 1, min_move))
-# 	else:
-# 		if col + 1 < N and board[row][col + 1] == 0:
-# 			min_move = min(min_move, test_cases(board, [row + 1, col, not is_horizon], move + 1, min_move))
-# 		if col - 1 >= 0 and row + 1 < N and board[row + 1][col - 1] == 0:
-# 			min_move = min(min_move, test_cases(board, [row, col - 1, not is_horizon], move + 1, min_move))
-# 		# if col - 1 >= 0 and board[row][col - 1] == 0:
-# 		# 	min_move = min(min_move, test_cases(board, [row + 1, col - 1, not is_horizon], move + 1, min_move))
-# 		# if row + 1 < N and col + 1 < N and board[row + 1][col + 1] == 0:
-# 		# 	min_move = min(min_move, test_cases(board, [row, col, not is_horizon], move + 1, min_move))
-# 	return min_move
-
-# def solution(board):
-# 	N = len(board)
-# 	return test_cases(board, [0, 0, True], 0, N * N)
