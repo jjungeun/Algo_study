@@ -30,7 +30,7 @@ def solution(map_info, pos_info, area):
 			if i == 3:
 				new_r, new_c = r + back_dr[d], c + back_dc[d]
 				q.append([new_r, new_c, d])
-				if area[new_r][new_c] == 1:
+				if new_r not in range(0, N) or new_c not in range(0, M) or area[new_r][new_c] == 1:
 					return answer
 
 if __name__ == "__main__":
