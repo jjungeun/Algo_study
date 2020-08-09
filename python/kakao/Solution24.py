@@ -51,10 +51,7 @@ def passby_load(loads):
 	answer = 0
 	for idx in range(N):
 		answer += check_load(loads[idx])
-		col_load = []
-		for r in range(N):
-			col_load.append(loads[r][idx])
-		answer += check_load(col_load)
+		answer += check_load([loads[r][idx] for r in range(N)])
 	return answer
 
 if __name__ == "__main__":
