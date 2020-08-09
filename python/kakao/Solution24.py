@@ -33,7 +33,6 @@ def check_load(load):
 			return 0
 
 		if pre > load[idx]:
-
 			if to_lower(load, idx, runway):
 				pre = load[idx]
 				idx += L
