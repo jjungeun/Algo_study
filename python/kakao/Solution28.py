@@ -36,16 +36,16 @@ def check(pre_row, pre_col, arr):
 			return 0
 	return sum
 
-def special_case(pre_row, pre_col, sum_square):
+def special_case(pre_row, pre_col):
 	up = [[0,1],[-1,1],[0,2]]
 	down = [[0,1],[1,1],[0,2]]
 	right = [[1,0],[1,1],[2,0]]
 	left = [[1,0],[1,-1],[2,0]]
-	max_square = sum_square
-	max_square = max(max_square, sum_square + check(pre_row, pre_col, up))
-	max_square = max(max_square, sum_square + check(pre_row, pre_col, down))
-	max_square = max(max_square, sum_square + check(pre_row, pre_col, right))
-	max_square = max(max_square, sum_square + check(pre_row, pre_col, left))
+	max_square = 0
+	max_square = max(max_square, check(pre_row, pre_col, up))
+	max_square = max(max_square, check(pre_row, pre_col, down))
+	max_square = max(max_square, check(pre_row, pre_col, right))
+	max_square = max(max_square, check(pre_row, pre_col, left))
 	return max_square
 
 def find_max():
@@ -54,7 +54,7 @@ def find_max():
 		for col in range(M):
 			visited[row][col] = 1
 			answer = max(answer, dfs(row, col, 1, paper[row][col]))
-			answer = max(answer, special_case(row, col, paper[row][col]))
+			answer = max(answer, special_case(row, col) + paper[row][col])
 			visited[row][col] = 0
 	return answer
 
