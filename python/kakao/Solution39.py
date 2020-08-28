@@ -1,23 +1,23 @@
 def solution(gems):
-	gem_kind = len(set(gems))
-	short_len = len(gems)
-	start = 0
-	end = 0
-	for idx in range(len(gems)):
-		if len(set(gems[idx:idx+gem_kind])) == gem_kind:
-			start = idx
-			end = start + gem_kind - 1
-			break
-		for tmp in range(idx+gem_kind, len(gems)):
-			if len(set(gems[idx:tmp+1])) == gem_kind:
-				start = idx
-				end = tmp
-				short_len = end - start
-				break
-			elif tmp - idx == short_len:
-				break
-
-	return [start+1, end+1]
-
-gems = 	["XYZ", "XYZ", "XYZ"]
-print(solution(gems))
+    answer = [0, len(gems)]
+    gem_dict = {gems[0]: 1}
+    gem_kind = len(set(gems))
+    left, right = 0, 0
+    while left < len(gems) and right < len(gems):
+        if len(gem_dict) < gem_kind:
+            right += 1
+            if right == len(gems):
+                break
+            if gems[right] in gem_dict.keys():
+                gem_dict[gems[right]] += 1
+            else:
+                gem_dict[gems[right]] = 1
+        else:
+            if right - left < answer[1] - answer[0]:
+                answer = [left+1, right+1]
+            if gem_dict[gems[left]] == 1:
+                del gem_dict[gems[left]]
+            else:
+                gem_dict[gems[left]] -= 1
+            left += 1
+    return answer
