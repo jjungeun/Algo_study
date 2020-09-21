@@ -28,7 +28,7 @@ def fill_blank(new_board, N, r, c, direct):
 		new_board[nr][nc] = new_board[r][c]
 		new_board[r][c] = 0
 
-# 오른쪽, 아래면 끝열부터, 왼쪽, 위면 원래대로
+# 오른쪽이나 아래면 끝행/끝열부터, 왼쪽이나 위면 원래대로
 def move(board, N, direct, is_reverse):
 	new_board = copy.deepcopy(board)
 	range_ord = range(N-1, -1, -1) if is_reverse else range(N)
@@ -36,9 +36,9 @@ def move(board, N, direct, is_reverse):
 		for c in range_ord:
 			if new_board[r][c] == 0:
 				continue
-			# 앞에 같은게 있으면 합치고 그자리는 0으로
+			# 뒤에 같은게 있으면 합치고 그자리는 0으로
 			combine_same(new_board, N, r, c, direct)
-			# 앞에 없으면 있을때까지 땡기기
+			# 앞에 있을때까지 땡기기
 			fill_blank(new_board, N, r, c, direct)
 	return new_board
 
