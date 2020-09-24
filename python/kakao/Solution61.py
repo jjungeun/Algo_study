@@ -58,17 +58,22 @@ def do_work(taxi_map, fuel, taxi_pos, guests):
 	answer = fuel
 	cnt = 0
 	while cnt < len(guests):
+		# 가장 가까이 있는 승객 찾기
 		idx, to_guest_dist = find_guest(taxi_map, taxi_pos, guests)
+		# 승객까지 못가는 경우
 		if idx == -1:
 			answer = -1
 			break
 		answer -= to_guest_dist
 		start, end = guests[idx]
+		# 승객 시작에서 도착지까지 거리
 		to_end_dist = get_dist(taxi_map, start, end)
 		answer -= to_end_dist
+		# 연료가 떨어졌거나 도착지로 못가는 경우
 		if answer < 0 or to_end_dist == -1:
 			answer = -1
 			break
+		# 택시 위치 업데이트
 		taxi_pos = end
 		answer += to_end_dist * 2
 		cnt += 1
@@ -84,7 +89,6 @@ guests = []
 for _ in range(M):
 	sr, sc, er, ec = map(int, input().split(' '))
 	guests.append([[sr-1, sc-1], [er-1, ec-1]])
-guests = sorted(guests)
 guests_pos = [[-1 for _ in range(N)] for _ in range(N)]
 for idx, guest in enumerate(guests):
 	start, end = guest
