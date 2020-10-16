@@ -1,141 +1,127 @@
-origin_cube = {
-	'w' : [['w' for _ in range(3)] for _ in range(3)],
-	'g' : [['g' for _ in range(3)] for _ in range(3)],
-	'r' : [['r' for _ in range(3)] for _ in range(3)],
-	'b' : [['b' for _ in range(3)] for _ in range(3)],
-	'o' : [['o' for _ in range(3)] for _ in range(3)],
-	'y' : [['y' for _ in range(3)] for _ in range(3)],
-}
-
-turn_dict = {
-	'U' : [['o', 'b', 'r', 'g'], 'w'],
-	'D' : [['g', 'r', 'b', 'o'], 'y'],
-	'F' : [['w', 'b', 'y', 'g'], 'r'],
-	'B' : [['y', 'b', 'w', 'g'], 'o'],
-	'L' : [['w', 'r', 'y', 'o'], 'g'],
-	'R' : [['y', 'r', 'w', 'o'], 'b'],
-}
-
-def turn_face(cube, face, direct):
-	turn_cube = cube[face]
-	tmp = []
-	if direct == '+':
-		for col in range(3):
-			row_tmp = []
-			for row in range(2, -1, -1):
-				row_tmp.append(turn_cube[row][col])
-			tmp.append(row_tmp)
-	else:
-		for col in range(2, -1, -1):
-			row_tmp = []
-			for row in range(3):
-				row_tmp.append(turn_cube[row][col])
-			tmp.append(row_tmp)
-	cube[face] = tmp
-
-def get_col(arr, col):
-	ret = []
-	for row in range(3):
-		ret += arr[row][col]
-	return ret
-
-def get_col_rev(arr, col):
-	ret = []
-	for row in range(2, -1, -1):
-		ret += arr[row][col]
-	return ret
-
-def set_col(arr, col, new_col):
-	for row in range(3):
-		arr[row][col] = new_col[row]
-
-def set_col_rev(arr, col, new_col):
-	for row in range(3):
-		arr[2 - row][col] = new_col[row]
-
-def turn_side(cube, face, sides):
-	if face == 'U' or face == 'D':
-		row = 0 if face == 'U' else 2
-		pre = cube[sides[0]][row]
-		for idx in range(1,4):
-			side = sides[idx]
-			tmp = cube[side][row]
-			cube[side][row] = pre
-			pre = tmp
-		cube[sides[0]][row] = pre
-	elif face == 'L':
-		col = 0
-		pre = get_col(cube[sides[0]], col)
-		for idx in range(1, 3):
-			side = sides[idx]
-			tmp = get_col(cube[side], col)
-			set_col(cube[side], col, pre)
-			pre = tmp
-		tmp = get_col_rev(cube[sides[3]], 2)
-		set_col_rev(cube[sides[3]], 2, pre)
-		set_col_rev(cube[sides[0]], col, tmp)
-	elif face == 'R':
-		col = 2
-		pre = get_col(cube[sides[0]], col)
-		for idx in range(1, 3):
-			side = sides[idx]
-			tmp = get_col(cube[side], col)
-			set_col(cube[side], col, pre)
-			pre = tmp
-		tmp = get_col_rev(cube[sides[3]], 0)
-		set_col_rev(cube[sides[3]], 0, pre)
-		set_col_rev(cube[sides[0]], col, tmp)
-	elif face == 'F':
-		pre = cube[sides[0]][2]
-
-		tmp = get_col(cube[sides[1]], 0)
-		set_col(cube[sides[1]], 0, pre)
-		pre = tmp
-
-		tmp = cube[sides[2]][0]
-		cube[sides[2]][0] = pre
-		pre = tmp
-
-		tmp = get_col(cube[sides[3]], 2)
-		set_col(cube[sides[3]], 2, pre)
-		pre = tmp
-
-		cube[sides[0]][2] = pre
-	elif face == 'B':
-		pre = cube[sides[0]][2]
-
-		tmp = get_col(cube[sides[1]], 2)
-		set_col(cube[sides[1]], 2, pre)
-		pre = tmp
-
-		tmp = cube[sides[2]][0]
-		cube[sides[2]][0] = pre
-		pre = tmp
-
-		tmp = get_col(cube[sides[3]], 0)
-		set_col(cube[sides[3]], 0, pre)
-		pre = tmp
-
-		cube[sides[0]][2] = pre
-
-def print_w(arr):
-	for row in range(3):
-		print(''.join(arr[row]))
+import sys
+sys.stdin = open("input.txt", "r")
 
 import copy
-N = int(input())
-for _ in range(N):
-	cases = int(input())
-	turn = input().split(' ')
-	cube = copy.deepcopy(origin_cube)
-	for case in turn:
-		face, direct = case
-		sides = turn_dict[face][0]
-		cube_face = turn_dict[face][1]
-		turn_face(cube, cube_face, direct)
-		if direct == '-':
-			for _ in range(3):
-				turn_side(cube, face, sides)
+def turn_face(face):
+	new_face = []
+	for c in range(3):
+		row = []
+		for r in range(2, -1, -1):
+			row.append(face[r][c])
+		new_face.append(row)
+	return new_face
+
+def copy_source(source, sidx, is_srow):
+	new_dest = [0 for _ in range(3)]
+	if is_srow:
+		new_dest = copy.deepcopy(source[sidx])
+	else:
+		for r in range(3):
+			new_dest[r] = source[r][sidx]
+	return new_dest
+
+def turn_side(dest, new_dest, didx, is_drow, is_reverse):
+	if not is_reverse:
+		if is_drow:
+			dest[didx] = copy.deepcopy(new_dest)
 		else:
-				turn_side(cube, face, sides)
-	print_w(cube['w'])
+			for r in range(3):
+				dest[r][didx] = new_dest[r]
+	else:
+		if is_drow:
+			dest[didx] = copy.deepcopy(new_dest[::-1])
+		else:
+			for r in range(3):
+				dest[r][didx] = new_dest[2 - r]
+
+def cubing(face):
+	global up
+	global down
+	global front
+	global back
+	global left
+	global right
+	if face == 'U':
+		up = turn_face(up)
+		tmp = copy_source(front, 0, True)
+		source = copy_source(right, 0, True)
+		turn_side(front, source, 0, True, False)
+		source = copy_source(back, 0, True)
+		turn_side(right, source, 0, True, False)
+		source = copy_source(left, 0, True)
+		turn_side(back, source, 0, True, False)
+		turn_side(left, tmp, 0, True, False)
+	elif face == 'D':
+		down = turn_face(down)
+		tmp = copy_source(front, 2, True)
+		source = copy_source(left, 2, True)
+		turn_side(front, source, 2, True, False)
+		source = copy_source(back, 2, True)
+		turn_side(left, source, 2, True, False)
+		source = copy_source(right, 2, True)
+		turn_side(back, source, 2, True, False)
+		turn_side(right, tmp, 2, True, False)
+	elif face == 'F':
+		front = turn_face(front)
+		tmp = copy_source(up, 2, True)
+		source = copy_source(left, 2, False)
+		turn_side(up, source, 2, True, True)
+		source = copy_source(down, 0, True)
+		turn_side(left, source, 2, False, False)
+		source = copy_source(right, 0, False)
+		turn_side(down, source, 0, True, True)
+		turn_side(right, tmp, 0, False, False)
+	elif face == 'B':
+		back = turn_face(back)
+		tmp = copy_source(up, 0, True)
+		source = copy_source(right, 2, False)
+		turn_side(up, source, 0, True, False)
+		source = copy_source(down, 2, True)
+		turn_side(right, source, 2, False, True)
+		source = copy_source(left,  0, False)
+		turn_side(down, source, 2, True, False)
+		turn_side(left, tmp, 0, False, True)
+	elif face == 'L':
+		left = turn_face(left)
+		tmp = copy_source(up, 0, False)
+		source = copy_source(back, 2, False)
+		turn_side(up, source, 0, False, True)
+		source = copy_source(down, 0, False)
+		turn_side(back, source, 2, False, True)
+		source = copy_source(front, 0, False)
+		turn_side(down, source, 0, False, False)
+		turn_side(front, tmp, 0, False, False)
+	elif face == 'R':
+		right = turn_face(right)
+		tmp = copy_source(front, 2, False)
+		source = copy_source(down, 2, False)
+		turn_side(front, source, 2, False, False)
+		source = copy_source(back, 0, False)
+		turn_side(down, source, 2, False, True)
+		source = copy_source(up, 2, False)
+		turn_side(back, source, 0, False, True)
+		turn_side(up, tmp, 2, False, False)
+
+
+T = int(input())
+for _ in range(T):
+	up = [['w' for _ in range(3)] for _ in range(3)]
+	down = [['y' for _ in range(3)] for _ in range(3)]
+	front = [['r' for _ in range(3)] for _ in range(3)]
+	back = [['o' for _ in range(3)] for _ in range(3)]
+	left = [['g' for _ in range(3)] for _ in range(3)]
+	right = [['b' for _ in range(3)] for _ in range(3)]
+	n = int(input())
+	turn = list(input().split())
+	for info in turn:
+		# 시계방향으로 한번
+		if info[1] == '+':
+			cubing(info[0])
+		# 반시계면 시계방향으로 세번
+		else:
+			cubing(info[0])
+			cubing(info[0])
+			cubing(info[0])
+	for r in range(3):
+		print(''.join(up[r]))
+
