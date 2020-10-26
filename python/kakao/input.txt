@@ -1,8 +1,8 @@
-7
-pop
-top
-push 123
-top
-pop
-top
-pop
+3
+www
+woo
+jun
+3
+hongjun
+myungwoo
+dooho
